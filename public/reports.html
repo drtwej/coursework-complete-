@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отчеты</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Основной стиль страницы */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #4f4f4f;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Устанавливаем минимальную высоту для flex-контейнера */
+        }
+
+        .header {
+            background-color: #ffffff;
+            color: #33747c;
+            border-bottom: 1px solid #e1e1e1;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .header-right {
+    position: absolute;
+    top: 10px; /* Уменьшено расстояние сверху */
+    right: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+        .header-right button {
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-right .home-button {
+            background-color: #4caf50;
+            top: 100px;
+            color: #fff;
+        }
+
+        .header-right .home-button:hover {
+            background-color: #45a049;
+            top: 100px;
+        }
+
+        .header-right .logout-button {
+            background-color: #d64f4f;
+            color: #fff;
+        }
+
+        .header-right .logout-button:hover {
+            background-color: #ccc;
+        }
+
+        .reports-section {
+            margin-top: 30px;
+            flex-grow: 1; /* Заполняет свободное пространство, чтобы футер был внизу */
+        }
+
+        .report-card {
+            background-color: #ffffff;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #e1e1e1;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .report-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .report-card .card-body {
+            padding: 18px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #33747c;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            color: #7a7a7a;
+            line-height: 1.4;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background-color: #33747c;
+            border-color: #33747c;
+        }
+
+        .btn-primary:hover {
+            background-color: #2c6f70;
+            border-color: #2c6f70;
+        }
+
+        footer {
+            background-color: #33747c;
+            color: #ffffff;
+            padding: 10px 0;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            height: 100px;
+        }
+
+        footer a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            margin-bottom: 100px; /* Чтобы контент не перекрывался футером */
+        }
+
+        .text-center {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h2>Отчеты</h2>
+        <div class="header-right">
+            <button class="home-button" onclick="window.location.href='dashboard.html'">На главную</button>
+            <button id="logoutButton" class="logout-button">Выйти</button>
+        </div>
+    </header>
+
+    <div class="container reports-section">
+        <div class="row" id="reportsList">
+            <!-- Отчеты будут отображаться здесь -->
+            <div class="col-md-4 mb-4">
+                <div class="report-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Отчет по проекту A</h5>
+                        <p class="card-text"><strong>Статус:</strong> Завершен</p>
+                        <p class="card-text">В этом отчете представлены результаты выполнения проекта A. Все этапы выполнены в срок, задачи успешно завершены.</p>
+                        <a href="report-details.html?id=1" class="btn btn-primary">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="report-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Отчет по проекту B</h5>
+                        <p class="card-text"><strong>Статус:</strong> В процессе</p>
+                        <p class="card-text">Данный отчет касается текущего состояния проекта B. Некоторые задачи требуют дополнительного времени для завершения.</p>
+                        <a href="report-details.html?id=2" class="btn btn-primary">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="report-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Отчет по проекту C</h5>
+                        <p class="card-text"><strong>Статус:</strong> Не начат</p>
+                        <p class="card-text">Этот отчет связан с проектом C, который находится на стадии планирования и не имеет значительных изменений на данный момент.</p>
+                        <a href="report-details.html?id=3" class="btn btn-primary">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <a href="create-report.html" class="btn btn-primary btn-sm">Создать новый отчет</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Система управления проектами. Все права защищены.</p>
+            <div>
+                <a href="#about" class="me-3">О сайте</a>
+                <a href="#contact">Контакты</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            // Очищаем токен и перенаправляем на страницу входа
+            localStorage.removeItem('authToken');
+            window.location.href = 'index.html';
+        });
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('authToken'); // Получаем токен из localStorage
+            if (!token) {
+                window.location.href = 'login.html'; // Если токен отсутствует, перенаправляем на страницу входа
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/reports', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+
+                if (response.ok) {
+                    const reports = await response.json();
+                    displayReports(reports);
+                } else {
+                    console.error('Ошибка при загрузке отчетов');
+                }
+            } catch (err) {
+                console.error('Ошибка:', err);
+            }
+        });
+
+        function displayReports(reports) {
+            const reportsList = document.getElementById('reportsList');
+            reportsList.innerHTML = '';
+
+            if (reports.length === 0) {
+                reportsList.innerHTML = '<p>У вас нет отчетов.</p>';
+                return;
+            }
+
+            reports.forEach(report => {
+                const reportCard = `
+                    <div class="col-md-4 mb-4">
+                        <div class="report-card">
+                            <div class="card-body">
+                                <h5 class="card-title">${report.title}</h5>
+                                <p class="card-text"><strong>Статус:</strong> ${report.status}</p>
+                                <p class="card-text">${report.description || 'Описание отсутствует'}</p>
+                                <a href="report-details.html?id=${report._id}" class="btn btn-primary">Подробнее</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reportsList.innerHTML += reportCard;
+            });
+        }
+    </script>
+
+</body>
+</html>

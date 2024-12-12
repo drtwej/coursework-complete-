@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои проекты</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #7fa4ad;
+            color: #4f4f4f;
+        }
+
+        .header {
+            background-color: #ffffff;
+            color: #000000;
+            border-bottom: 1px solid #e1e1e1;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .projects-list {
+            margin-top: 30px;
+        }
+
+        .project-card {
+            background-color: #ffffff;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #e1e1e1;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-card .card-body {
+            padding: 18px;
+        }
+
+        .project-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .project-description {
+            font-size: 1rem;
+            color: #7a7a7a;
+            line-height: 1.4;
+            margin-top: 10px;
+        }
+
+        .project-actions {
+            margin-top: 15px;
+        }
+
+        .logout-button {
+            background-color: #d64f4f;
+            color: #333;
+            font-size: 16px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            max-width: 160px;
+            margin-top: 30px;
+            margin-bottom: 40px;
+            
+}
+
+        
+
+        .logout-button:hover {
+            background-color: #ccc;
+        }
+
+        .create-btn {
+            width: 100%;
+            max-width: 220px;
+            padding: 12px;
+            font-size: 18px;
+            border-radius: 6px;
+            background-color: #4caf50;
+            color: #ffffff;
+            border: none;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .create-btn:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            background-color: #33747c;
+            color: #000000;
+            padding: 5px 0;
+            border-top: 1px solid #e1e1e1;
+            width: 100%;
+            text-align: center;
+        }
+
+        footer a {
+    color: #000000;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+        .about-section, .tips-section, .partners-section {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            margin-top: 30px;
+        }
+
+        .about-section h3, .tips-section h3, .partners-section h3 {
+            font-size: 1.5rem;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .about-section p, .tips-section p, .partners-section p {
+            font-size: 1rem;
+            color: #777;
+            line-height: 1.6;
+        }
+
+        .tip {
+            font-size: 1rem;
+            color: #777;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .tips-section .tip strong {
+            font-weight: 600;
+            color: #333;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="header text-center d-flex justify-content-between align-items-center">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">Система управления проектами</h2>
+            <a href="profile.html" class="btn btn-outline-dark">Личный кабинет</a>
+        </div>
+    </header>
+    <div class="container">
+        <div class="about-section">
+            <h3>О чем этот сайт</h3>
+            <p>Этот сайт предназначен для управления проектами, где пользователи могут создавать и отслеживать свои проекты. Вы можете добавлять новые проекты, редактировать информацию о них, а также просматривать список всех доступных проектов. Это удобная платформа для координации командной работы и отслеживания прогресса.</p>
+        </div>
+    </div>
+
+    <!-- Новый блок с советами для пользователей -->
+    <div class="container">
+        <div class="tips-section">
+            <h3>Полезные советы</h3>
+            <div class="tip">
+                <strong>Планируйте проект заранее:</strong> Перед началом важно иметь четкое представление о целях проекта, сроках и участниках.
+            </div>
+            <div class="tip">
+                <strong>Регулярно обновляйте информацию:</strong> Не забывайте обновлять данные по проекту, чтобы все участники были в курсе текущего состояния.
+            </div>
+            <div class="tip">
+                <strong>Следите за сроками:</strong> Использование таймлайнов и напоминаний поможет вам не забыть о важных датах.
+            </div>
+        </div>
+    </div>
+    <div class="container projects-list">
+        <div class="row justify-content-between mb-4">
+            <a href="create-project.html" class="btn create-btn">Создать новый проект</a>
+        </div>
+
+        <div id="projectsList" class="row">
+            <!-- Список проектов будет загружен сюда -->
+        </div>
+    </div>
+
+    <div class="container">
+        <button id="logoutButton" class="logout-button">
+            Выйти
+        </button>
+    </div>
+
+    <!-- Блок "О чем этот сайт" -->
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Мои проекты. Все права защищены.</p>
+            <p>Сайт разработан для управления проектами и задачами. Все вопросы можно отправлять на <a href="mailto:support@example.com">savkaprokhorov@gmail.com</a>.</p>
+            <div>
+                <a href="#about" class="me-3">О сайте</a>
+                <a href="#contact">Контакты</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="app.js"></script>
+
+</body>
+</html>

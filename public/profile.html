@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Личный кабинет</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #7fa4ad;
+      color: #4f4f4f;
+      padding-top: 40px;
+    }
+
+    .header {
+      background-color: #33747c;
+      color: #ffffff;
+      border-bottom: 1px solid #e1e1e1;
+      padding: 20px 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .header h2 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    .profile-section {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .profile-section img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+
+    .profile-info {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+
+    /* Блок с изменением информации */
+    .update-profile-section {
+      background-color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      width: 40%;  /* Уменьшаем размер блока в два раза */
+      margin-left: 0; /* Выравниваем слева */
+      margin-top: 20px;
+    }
+
+    .logout-button, .home-button, .admin-button {
+      background-color: #e74c3c;
+      color: white;
+      font-size: 16px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      outline: none;
+      display: inline-block;
+      margin: 10px 0;
+    }
+
+    .logout-button:hover, .home-button:hover, .admin-button:hover {
+      background-color: #c0392b;
+    }
+
+    .home-button {
+      background-color: #4caf50;
+    }
+
+    .home-button:hover {
+      background-color: #45a049;
+    }
+
+    .admin-button {
+      background-color: #f39c12;
+    }
+
+    .admin-button:hover {
+      background-color: #e67e22;
+    }
+
+    .logout-button:focus, .home-button:focus, .admin-button:focus {
+      outline: none;
+    }
+
+    footer {
+      background-color: #33747c;
+      color: #ffffff;
+      padding: 5px 0;
+      border-top: 1px solid #e1e1e1;
+      width: 100%;
+      text-align: center;
+    }
+
+    footer a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container text-center">
+    <h1 class="my-4">Личный кабинет</h1>
+
+    <!-- Информация о пользователе -->
+    <div class="profile-section">
+      <img src="https://via.placeholder.com/150" alt="Фото пользователя" id="userImage">
+      <div class="profile-info">
+        <h3>Информация о пользователе</h3>
+        <p><strong>Email:</strong> <span id="userEmail"></span></p>
+        <p><strong>Дата регистрации:</strong> <span id="userJoinDate"></span></p>
+      </div>
+    </div>
+
+    <!-- Изменение информации -->
+    <div class="update-profile-section">
+      <h3>Изменить информацию</h3>
+      <form id="updateProfileForm">
+        <div class="mb-3">
+          <label for="newEmail" class="form-label">Новый Email</label>
+          <input type="email" class="form-control" id="newEmail">
+        </div>
+        <div class="mb-3">
+          <label for="newPassword" class="form-label">Новый пароль</label>
+          <input type="password" class="form-control" id="newPassword">
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+      </form>
+    </div>
+
+    <div class="text-center mt-4">
+      <button id="logoutButton" class="logout-button">Выйти</button>
+      <button id="homeButton" class="home-button" onclick="window.location.href='dashboard.html'">На главную</button>
+      <button id="adminButton" class="admin-button" onclick="window.location.href='adminDashboard.html'">Админ панель</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 Мои проекты. Все права защищены.</p>
+      <p>Сайт разработан для управления проектами и задачами. Все вопросы можно отправлять на <a href="mailto:support@example.com">savkaprokhorov@gmail.com</a>.</p>
+      <div>
+        <a href="#about" class="me-3">О сайте</a>
+        <a href="#contact">Контакты</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Функция для загрузки данных пользователя
+    async function loadUserProfile() {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        window.location.href = 'index.html'; // Перенаправляем на страницу входа, если нет токена
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/user', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          document.getElementById('userEmail').textContent = data.user.email;
+          document.getElementById('userJoinDate').textContent = new Date(data.user.joinDate).toLocaleDateString();
+          document.getElementById('userImage').src = data.user.profileImage || 'https://via.placeholder.com/150';
+        } else {
+          alert(data.message || 'Ошибка загрузки данных пользователя');
+        }
+      } catch (err) {
+        console.error('Ошибка:', err);
+        alert('Произошла ошибка при загрузке данных пользователя.');
+      }
+    }
+
+    // Обработчик отправки формы изменения данных пользователя
+    document.getElementById('updateProfileForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        alert('Необходима авторизация!');
+        window.location.href = 'index.html'; // Перенаправление на страницу входа
+        return;
+      }
+
+      const newEmail = document.getElementById('newEmail').value.trim();
+      const newPassword = document.getElementById('newPassword').value.trim();
+
+      try {
+        const response = await fetch('/api/user/update', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            email: newEmail,
+            password: newPassword,
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert('Данные успешно обновлены!');
+          window.location.reload(); // Перезагружаем страницу для обновления информации
+        } else {
+          alert(data.message || 'Ошибка при обновлении данных');
+        }
+      } catch (err) {
+        console.error('Ошибка:', err);
+        alert('Произошла ошибка при обновлении данных.');
+      }
+    });
+
+    // Обработчик для выхода из системы
+    document.getElementById('logoutButton').addEventListener('click', () => {
+      localStorage.removeItem('authToken');  // Удаляем токен
+      window.location.href = 'index.html';  // Перенаправляем на страницу входа
+    });
+
+    // Загружаем данные о пользователе при загрузке страницы
+    window.addEventListener('DOMContentLoaded', loadUserProfile);
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
